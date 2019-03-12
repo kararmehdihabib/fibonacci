@@ -5,6 +5,9 @@ services:
 before_install:
   - docker build -t kararha/fibonacci-test -f ./client/Dockerfile.dev ./client
 
+script:
+  - docker run kararha/fibonacci-test npm test -- --coverage
+
 
 after_success:
   - docker build -t kararha/client ./client
