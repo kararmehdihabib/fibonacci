@@ -1,6 +1,4 @@
 sudo: required
-node_js:
-  - "11.10.1"
 services:
   - docker
 
@@ -23,3 +21,17 @@ after_success:
   - docker push kararha/nginx
   - docker push kararha/server
   - docker push kararha/worker
+
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: fibonacci
+  env: Fibonacci-env
+  bucket_name: elasticbeanstalk-us-east-2-029940143329
+  bucket_path: docker-multi
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
